@@ -10,9 +10,9 @@ import { PaisService } from 'src/app/services/pais.service';
 export class TemplateComponent implements OnInit {
 
   usuario = {
-    nombre: 'Fernando',
-    apellido:'Herrera',
-    correo:'fernando@gmail.com',
+    nombre: 'Kevin',
+    apellido:'Chiquil',
+    correo:'kevin@gmail.com',
     pais: '',
     genero: 'M'
   }
@@ -20,7 +20,7 @@ export class TemplateComponent implements OnInit {
   paises: any[] = [];
 
   constructor( private paisService: PaisService ) {}
-  
+
   ngOnInit():void{
 
     this.paisService.getPaises()

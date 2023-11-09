@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidadoresService } from '../../services/validadores.service';
 
+
 @Component({
   selector: 'app-reactive',
   templateUrl: './reactive.component.html',
@@ -40,6 +41,10 @@ export class ReactiveComponent implements OnInit {
     return this.forma.get('correo')?.invalid && this.forma.get('correo')?.touched
   }
 
+  get usuarioNoValido() {
+    return this.forma.get('usuario')?.invalid && this.forma.get('usuario')?.touched
+  }
+
   get distritoNoValido() {
     return this.forma.get('direccion.distrito')?.invalid && this.forma.get('direccion.distrito')?.touched
   }
@@ -67,8 +72,9 @@ export class ReactiveComponent implements OnInit {
 
     this.forma = this.fb.group({
       nombre  : ['', [ Validators.minLength(5), Validators.required  ] ],
-      apellido: ['', Validators.required ],
+      apellido: ['', [ Validators.required, this.validadores.noHerrera ] ],
       correo  : ['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')] ],
+      usuario   : ['', , this.validadores.existeUsuario],
       pass1   : ['',  Validators.required],
       pass2   : ['',  Validators.required],
       direccion: this.fb.group({
@@ -90,6 +96,8 @@ export class ReactiveComponent implements OnInit {
       nombre: 'Fernando',
       apellido: 'Perez',
       correo: 'juam@gmail.com',
+      pass1: '123',
+      pass2: '123',
       direccion: {
         distrito: 'Ontario',
         ciudad: 'Ottawa'
